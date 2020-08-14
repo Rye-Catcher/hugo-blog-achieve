@@ -2,12 +2,12 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
  <channel>
    <title>Tags on Rat&#39;s blog</title>
-   <link>https://zealous-mud-00acd3e00.azurestaticapps.net//tags/</link>
+   <link>https://www.rye-catcher.codes/tags/</link>
    <description>Recent content in Tags on Rat&#39;s blog</description>
    <generator>Hugo -- gohugo.io</generator>
    <copyright>Copyright &amp;copy; 2020 - Rat</copyright>
    
-       <atom:link href="https://zealous-mud-00acd3e00.azurestaticapps.net//tags/index.xml" rel="self" type="application/rss+xml" />
+       <atom:link href="https://www.rye-catcher.codes/tags/index.xml" rel="self" type="application/rss+xml" />
    
    
  </channel>
