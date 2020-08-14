@@ -1,5 +1,5 @@
 baseurl = "https://zealous-mud-00acd3e00.azurestaticapps.net//"
-title = "Rat's bloh"
+title = "Rat's blog"
 copyright = "Copyright &copy; 2020 - Rat"
 canonifyurls = true
 theme = "hugo-kiera"
