@@ -3,15 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.rye-catcher.codes/posts/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/about/</loc>
+    <lastmod>2020-08-14T18:09:25+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.rye-catcher.codes/categories/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/categories/first-blog/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/tags/hello-world/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/posts/my-first-post/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.rye-catcher.codes/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.rye-catcher.codes/tags/</loc>
+    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
   </url>
   
 </urlset>
