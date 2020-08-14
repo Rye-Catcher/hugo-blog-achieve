@@ -57,8 +57,8 @@
     <ul>
         
         <li>
-            <a class="" href="https://www.rye-catcher.codes/categories">
-                <i class="fa-li fa  fa-lg"></i><span>Categories</span>
+            <a class="" href="https://www.rye-catcher.codes/tags">
+                <i class="fa-li fa  fa-lg"></i><span>Tags</span>
             </a>
         </li>
         
@@ -139,6 +139,33 @@
     </ul>
 </section>
   
+    
+        <section id="utterances"></section>
+
+<script>
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        let s = document.createElement("script");
+        s.setAttribute("repo", "Rye-Catcher\/hugo-blog");
+        s.src = "https://utteranc.es/client.js";
+        
+          s.setAttribute("issue-term", "url");
+        
+        
+        document.getElementById("utterances").innerHTML = "";
+        document.getElementById("utterances").appendChild(s);
+    } else {
+        let s = document.createElement("script");
+        s.setAttribute("repo", "Rye-Catcher\/hugo-blog");
+        s.src = "https://utteranc.es/client.js";
+        
+          s.setAttribute("issue-term", "url");
+        
+        
+        document.getElementById("utterances").innerHTML = "";
+        document.getElementById("utterances").appendChild(s);
+    }
+</script>
+
     
     
   
