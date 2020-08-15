@@ -10,3 +10,5 @@ categories = ["first blog"]
 ### Hello World
 
 This is the first post on this blog.
+
+Free to say anything in the comments
