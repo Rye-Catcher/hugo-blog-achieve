@@ -8,7 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="description" content="Rat&#39;s 2nd blog" />
 <meta name="author" content="Rat" /><meta property="og:title" content="Logarithmic Algorithms to Calculate Fibonacci Numbers From SICP JS Exercise 1.19 " />
-<meta property="og:description" content="Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19 Preface We all know the Fibonacci sequence $$ \begin{equation} Fib(k)= \begin{cases} 0 &amp; &amp; (k == 0) \
+<meta property="og:description" content="Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19 Preface We all know the Fibonacci sequence
+$$ \begin{equation} Fib(k)= \begin{cases} 0 &amp; &amp; (k == 0) \
 1 &amp; &amp; (k == 1) \" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://www.rye-catcher.codes/posts/logarithmic-algorithms-to-calculate-fibonacci-numbers-from-sicp-js-exercise-1-19/" />
@@ -17,7 +18,8 @@
 
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Logarithmic Algorithms to Calculate Fibonacci Numbers From SICP JS Exercise 1.19 "/>
-<meta name="twitter:description" content="Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19 Preface We all know the Fibonacci sequence $$ \begin{equation} Fib(k)= \begin{cases} 0 &amp; &amp; (k == 0) \
+<meta name="twitter:description" content="Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19 Preface We all know the Fibonacci sequence
+$$ \begin{equation} Fib(k)= \begin{cases} 0 &amp; &amp; (k == 0) \
 1 &amp; &amp; (k == 1) \"/>
 
 <meta name="generator" content="Hugo 0.74.3" />
@@ -126,18 +128,18 @@
 
     <h2 id="logarithmic-algorithms-to-calculate-fibonacci-numbers---from-sicp-js-exercise-119">Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19</h2>
 <h3 id="preface">Preface</h3>
-<p>We all know the Fibonacci sequence
-$$
+<p>We all know the Fibonacci sequence</p>
+<p>$$
 \begin{equation}
 Fib(k)=
 \begin{cases}
 0 &amp; &amp; (k == 0) \<br>
 1 &amp; &amp; (k == 1) \<br>
 Fib(k-1) + Fib(k-2) &amp; &amp; (k &gt;= 2)
-\end{cases}</p>
-<p>\end{equation}
-$$
-and the Fibonacci number $F_n$ denotes the nth term of this sequence</p>
+\end{cases}
+\end{equation}
+$$</p>
+<p>and the Fibonacci number $F_n$ denotes the nth term of this sequence</p>
 <p>By the definition we can easily write a recursive function to compute $F_n$</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">calc_fib</span>(<span style="color:#a6e22e">n</span>) {
 	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>
@@ -180,112 +182,99 @@ and the Fibonacci number $F_n$ denotes the nth term of this sequence</p>
 <blockquote>
 <p>WARNING: Please get ready to see a true magic</p>
 </blockquote>
-<p>$$
+<h1 id="right">$$
 \left[
-\begin{matrix}</p>
-<p>F_n &amp; F_{n-1} \<br>
-F_{n-1} &amp; F_{n-2}</p>
-<p>\end{matrix}
+\begin{matrix}
+F_n &amp; F_{n-1} \<br>
+F_{n-1} &amp; F_{n-2}
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}</p>
-<p>1 &amp; 1 \<br>
-1 &amp;0</p>
-<p>\end{matrix}
-\right]</p>
-<p>=
-\left[
-\begin{matrix}</p>
-<p>F_{n+1} &amp; F_{n} \<br>
-F_{n} &amp; F_{n-1}</p>
-<p>\end{matrix}
+\begin{matrix}
+1 &amp; 1 \<br>
+1 &amp;0
+\end{matrix}
+\right]</h1>
+<p>\left[
+\begin{matrix}
+F_{n+1} &amp; F_{n} \<br>
+F_{n} &amp; F_{n-1}
+\end{matrix}
 \right]
 $$</p>
 <p>So we do $n$  times manipulation and will get $F_{n+1}$</p>
 <p>But&hellip;remember matrix manipulation has the property of associativity? e.g. $A \cdot B \cdot C = A \cdot (B \cdot C)$, $A, B, C$ all denoted a matrix.</p>
-<p>So let $B$ denotes
-$$
+<p>So let $B$ denotes</p>
+<p>$$
 \left[
-\begin{matrix}</p>
-<p>1 &amp; 1 \<br>
-1 &amp;0</p>
-<p>\end{matrix}
+\begin{matrix}
+1 &amp; 1 \<br>
+1 &amp;0
+\end{matrix}
 \right]
-$$
-$n$ times transformation is :
-$$
+$$</p>
+<p>$n$ times transformation is :</p>
+<h1 id="b--n">$$
 \left[
-\begin{matrix}</p>
-<p>F_n &amp; F_{n-1} \<br>
-F_{n-1} &amp; F_{n-2}</p>
-<h1 id="b--n">\end{matrix}
+\begin{matrix}
+F_n &amp; F_{n-1} \<br>
+F_{n-1} &amp; F_{n-2}
+\end{matrix}
 \right]
 \cdot
 B ^ n</h1>
 <p>\left[
-\begin{matrix}</p>
-<p>F_{n+1} &amp; F_{n} \<br>
-F_{n} &amp; F_{n-1}</p>
-<p>\end{matrix}
+\begin{matrix}
+F_{n+1} &amp; F_{n} \<br>
+F_{n} &amp; F_{n-1}
+\end{matrix}
 \right]
-$$
-And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven&rsquo;t got a good way to implement matrix and matrix manipulation in <em>source</em> language, I will not give the code here.</p>
+$$</p>
+<p>And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven&rsquo;t got a good way to implement matrix and matrix manipulation in <em>source</em> language, I will not give the code here.</p>
 <h3 id="remark">Remark</h3>
-<p>In fact we can find a instance for the transformation in <strong>Method #1</strong>, in matrix form.
-$$
+<p>In fact we can find a instance for the transformation in <strong>Method #1</strong>, in matrix form.</p>
+<p>$$
 \left[
-\begin{matrix}</p>
-<pre><code>   0 &amp; 0 \\
-
-   b &amp; a 
-</code></pre>
-<p>\end{matrix}
+\begin{matrix}
+0 &amp; 0 \<br>
+b &amp; a
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}</p>
-<pre><code>   p &amp; q \\
-
-   q &amp; (p+q) 
-</code></pre>
-<p>\end{matrix}
+\begin{matrix}
+p &amp; q \<br>
+q &amp; (p+q)
+\end{matrix}
 \right]
-$$
-notice that
-$$
+$$</p>
+<p>notice that</p>
+<h1 id="right-1">$$
 \left[
-\begin{matrix}</p>
-<pre><code>   p &amp; q \\
-
-   q &amp; (p+q) 
-</code></pre>
-<p>\end{matrix}
+\begin{matrix}
+p &amp; q \<br>
+q &amp; (p+q)
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}</p>
-<pre><code>   p &amp; q \\
-
-   q &amp; (p+q) 
-</code></pre>
-<h1 id="right">\end{matrix}
+\begin{matrix}
+p &amp; q \<br>
+q &amp; (p+q)
+\end{matrix}
+\right]</h1>
+<h1 id="right-2">\left[
+\begin{matrix}
+p^2 + q^2 &amp; 2pq +q^2 \<br>
+2pq +q^2 &amp; p^2 + 2pq+2q^2
+\end{matrix}
 \right]</h1>
 <p>\left[
-\begin{matrix}</p>
-<pre><code>   p^2 + q^2 &amp; 2pq +q^2 \\
-
-   2pq +q^2 &amp; p^2 + 2pq+2q^2
-</code></pre>
-<h1 id="right-1">\end{matrix}
-\right]</h1>
-<p>\left[
-\begin{matrix}</p>
-<pre><code>   p' &amp; q' \\
-
-   q' &amp; (p'+q') 
-</code></pre>
-<p>\end{matrix}
+\begin{matrix}
+p&rsquo; &amp; q&rsquo; \<br>
+q&rsquo; &amp; (p'+q&rsquo;)
+\end{matrix}
 \right]
 $$</p>
 <h3 id="reference">Reference</h3>

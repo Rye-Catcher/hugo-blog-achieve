@@ -10,6 +10,7 @@ categories = ["SICP"]
 ### Preface
 
 We all know the Fibonacci sequence
+
 $$
 \begin{equation}
 Fib(k)= 
@@ -18,9 +19,9 @@ Fib(k)=
 1 & & (k == 1) \\
 Fib(k-1) + Fib(k-2) & & (k >= 2) 
 \end{cases}
-
 \end{equation}
 $$
+
 and the Fibonacci number $F_n$ denotes the nth term of this sequence
 
 By the definition we can easily write a recursive function to compute $F_n$
@@ -91,29 +92,22 @@ To compute $F_n$, the time complexity is $O(\log n)$
 $$
 \left[
 \begin{matrix}
-
 F_n & F_{n-1} \\
 F_{n-1} & F_{n-2}
-
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-
 1 & 1 \\
 1 &0
-
 \end{matrix}
 \right]
-
 = 
 \left[
 \begin{matrix}
-
 F_{n+1} & F_{n} \\
 F_{n} & F_{n-1}
-
 \end{matrix}
 \right]
 $$
@@ -123,24 +117,23 @@ So we do $n$  times manipulation and will get $F_{n+1}$
 But...remember matrix manipulation has the property of associativity? e.g. $A \cdot B \cdot C = A \cdot (B \cdot C)$, $A, B, C$ all denoted a matrix.
 
 So let $B$ denotes 
+
 $$
 \left[
 \begin{matrix}
-
 1 & 1 \\
 1 &0
-
 \end{matrix}
 \right]
 $$
+
 $n$ times transformation is :
+
 $$
 \left[
 \begin{matrix}
-
 F_n & F_{n-1} \\
 F_{n-1} & F_{n-2}
-
 \end{matrix}
 \right]
 \cdot
@@ -148,13 +141,12 @@ B ^ n
 = 
 \left[
 \begin{matrix}
-
 F_{n+1} & F_{n} \\
 F_{n} & F_{n-1}
-
 \end{matrix}
 \right]
 $$
+
 And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven't got a good way to implement matrix and matrix manipulation in _source_ language, I will not give the code here. 
 
 
@@ -162,66 +154,51 @@ And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So
 ### Remark
 
 In fact we can find a instance for the transformation in **Method #1**, in matrix form.
+
 $$
 \left[
  \begin{matrix}
-
        0 & 0 \\
-
        b & a 
-
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-
        p & q \\
-
        q & (p+q) 
-
 \end{matrix}
 \right]
 $$
+
 notice that
+
 $$
 \left[
 \begin{matrix}
-
        p & q \\
-
        q & (p+q) 
-
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-
        p & q \\
-
        q & (p+q) 
-
 \end{matrix}
 \right]
 = 
 \left[
 \begin{matrix}
-
        p^2 + q^2 & 2pq +q^2 \\
-
        2pq +q^2 & p^2 + 2pq+2q^2
-
 \end{matrix}
 \right]
 =
 \left[
 \begin{matrix}
-
        p' & q' \\
-
        q' & (p'+q') 
-
 \end{matrix}
 \right]
 $$

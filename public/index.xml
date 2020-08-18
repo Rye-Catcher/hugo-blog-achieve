@@ -19,18 +19,18 @@
        <guid>https://www.rye-catcher.codes/posts/logarithmic-algorithms-to-calculate-fibonacci-numbers-from-sicp-js-exercise-1-19/</guid>
        <description>&lt;h2 id=&#34;logarithmic-algorithms-to-calculate-fibonacci-numbers---from-sicp-js-exercise-119&#34;&gt;Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19&lt;/h2&gt;
 &lt;h3 id=&#34;preface&#34;&gt;Preface&lt;/h3&gt;
-&lt;p&gt;We all know the Fibonacci sequence
-$$
+&lt;p&gt;We all know the Fibonacci sequence&lt;/p&gt;
+&lt;p&gt;$$
 \begin{equation}
 Fib(k)=
 \begin{cases}
 0 &amp;amp; &amp;amp; (k == 0) \&lt;br&gt;
 1 &amp;amp; &amp;amp; (k == 1) \&lt;br&gt;
 Fib(k-1) + Fib(k-2) &amp;amp; &amp;amp; (k &amp;gt;= 2)
-\end{cases}&lt;/p&gt;
-&lt;p&gt;\end{equation}
-$$
-and the Fibonacci number $F_n$ denotes the nth term of this sequence&lt;/p&gt;
+\end{cases}
+\end{equation}
+$$&lt;/p&gt;
+&lt;p&gt;and the Fibonacci number $F_n$ denotes the nth term of this sequence&lt;/p&gt;
 &lt;p&gt;By the definition we can easily write a recursive function to compute $F_n$&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;) {
 	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
@@ -73,112 +73,99 @@ and the Fibonacci number $F_n$ denotes the nth term of this sequence&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;WARNING: Please get ready to see a true magic&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;$$
+&lt;h1 id=&#34;right&#34;&gt;$$
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;p&gt;F_n &amp;amp; F_{n-1} \&lt;br&gt;
-F_{n-1} &amp;amp; F_{n-2}&lt;/p&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+F_n &amp;amp; F_{n-1} \&lt;br&gt;
+F_{n-1} &amp;amp; F_{n-2}
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;p&gt;1 &amp;amp; 1 \&lt;br&gt;
-1 &amp;amp;0&lt;/p&gt;
-&lt;p&gt;\end{matrix}
-\right]&lt;/p&gt;
-&lt;p&gt;=
-\left[
-\begin{matrix}&lt;/p&gt;
-&lt;p&gt;F_{n+1} &amp;amp; F_{n} \&lt;br&gt;
-F_{n} &amp;amp; F_{n-1}&lt;/p&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+1 &amp;amp; 1 \&lt;br&gt;
+1 &amp;amp;0
+\end{matrix}
+\right]&lt;/h1&gt;
+&lt;p&gt;\left[
+\begin{matrix}
+F_{n+1} &amp;amp; F_{n} \&lt;br&gt;
+F_{n} &amp;amp; F_{n-1}
+\end{matrix}
 \right]
 $$&lt;/p&gt;
 &lt;p&gt;So we do $n$  times manipulation and will get $F_{n+1}$&lt;/p&gt;
 &lt;p&gt;But&amp;hellip;remember matrix manipulation has the property of associativity? e.g. $A \cdot B \cdot C = A \cdot (B \cdot C)$, $A, B, C$ all denoted a matrix.&lt;/p&gt;
-&lt;p&gt;So let $B$ denotes
-$$
+&lt;p&gt;So let $B$ denotes&lt;/p&gt;
+&lt;p&gt;$$
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;p&gt;1 &amp;amp; 1 \&lt;br&gt;
-1 &amp;amp;0&lt;/p&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+1 &amp;amp; 1 \&lt;br&gt;
+1 &amp;amp;0
+\end{matrix}
 \right]
-$$
-$n$ times transformation is :
-$$
+$$&lt;/p&gt;
+&lt;p&gt;$n$ times transformation is :&lt;/p&gt;
+&lt;h1 id=&#34;b--n&#34;&gt;$$
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;p&gt;F_n &amp;amp; F_{n-1} \&lt;br&gt;
-F_{n-1} &amp;amp; F_{n-2}&lt;/p&gt;
-&lt;h1 id=&#34;b--n&#34;&gt;\end{matrix}
+\begin{matrix}
+F_n &amp;amp; F_{n-1} \&lt;br&gt;
+F_{n-1} &amp;amp; F_{n-2}
+\end{matrix}
 \right]
 \cdot
 B ^ n&lt;/h1&gt;
 &lt;p&gt;\left[
-\begin{matrix}&lt;/p&gt;
-&lt;p&gt;F_{n+1} &amp;amp; F_{n} \&lt;br&gt;
-F_{n} &amp;amp; F_{n-1}&lt;/p&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+F_{n+1} &amp;amp; F_{n} \&lt;br&gt;
+F_{n} &amp;amp; F_{n-1}
+\end{matrix}
 \right]
-$$
-And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven&amp;rsquo;t got a good way to implement matrix and matrix manipulation in &lt;em&gt;source&lt;/em&gt; language, I will not give the code here.&lt;/p&gt;
+$$&lt;/p&gt;
+&lt;p&gt;And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven&amp;rsquo;t got a good way to implement matrix and matrix manipulation in &lt;em&gt;source&lt;/em&gt; language, I will not give the code here.&lt;/p&gt;
 &lt;h3 id=&#34;remark&#34;&gt;Remark&lt;/h3&gt;
-&lt;p&gt;In fact we can find a instance for the transformation in &lt;strong&gt;Method #1&lt;/strong&gt;, in matrix form.
-$$
+&lt;p&gt;In fact we can find a instance for the transformation in &lt;strong&gt;Method #1&lt;/strong&gt;, in matrix form.&lt;/p&gt;
+&lt;p&gt;$$
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   0 &amp;amp; 0 \\
-
-   b &amp;amp; a 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+0 &amp;amp; 0 \&lt;br&gt;
+b &amp;amp; a
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
-
-   q &amp;amp; (p+q) 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+p &amp;amp; q \&lt;br&gt;
+q &amp;amp; (p+q)
+\end{matrix}
 \right]
-$$
-notice that
-$$
+$$&lt;/p&gt;
+&lt;p&gt;notice that&lt;/p&gt;
+&lt;h1 id=&#34;right-1&#34;&gt;$$
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
-
-   q &amp;amp; (p+q) 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+p &amp;amp; q \&lt;br&gt;
+q &amp;amp; (p+q)
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
-
-   q &amp;amp; (p+q) 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;right&#34;&gt;\end{matrix}
+\begin{matrix}
+p &amp;amp; q \&lt;br&gt;
+q &amp;amp; (p+q)
+\end{matrix}
+\right]&lt;/h1&gt;
+&lt;h1 id=&#34;right-2&#34;&gt;\left[
+\begin{matrix}
+p^2 + q^2 &amp;amp; 2pq +q^2 \&lt;br&gt;
+2pq +q^2 &amp;amp; p^2 + 2pq+2q^2
+\end{matrix}
 \right]&lt;/h1&gt;
 &lt;p&gt;\left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p^2 + q^2 &amp;amp; 2pq +q^2 \\
-
-   2pq +q^2 &amp;amp; p^2 + 2pq+2q^2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&#34;right-1&#34;&gt;\end{matrix}
-\right]&lt;/h1&gt;
-&lt;p&gt;\left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p&#39; &amp;amp; q&#39; \\
-
-   q&#39; &amp;amp; (p&#39;+q&#39;) 
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+p&amp;rsquo; &amp;amp; q&amp;rsquo; \&lt;br&gt;
+q&amp;rsquo; &amp;amp; (p&#39;+q&amp;rsquo;)
+\end{matrix}
 \right]
 $$&lt;/p&gt;
 &lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
