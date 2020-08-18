@@ -3,6 +3,7 @@ title = "Logarithmic Algorithms to Calculate Fibonacci Numbers From SICP JS Exer
 date = 2020-08-19T00:31:21+08:00
 tags = ["SICP", "Fibonacci"]
 categories = ["SICP"]
+markup = "mmark"
 +++
 
 ## Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19
