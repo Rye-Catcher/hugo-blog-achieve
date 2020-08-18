@@ -59,9 +59,9 @@ Fib(k-1) + Fib(k-2) &amp; &amp; (k &gt;= 2)
 
 &lt;p&gt;You may ask: &amp;quot;wait, what, how the * this is related to Fib&amp;quot;, pls keep reading&lt;/p&gt;
 
-&lt;p&gt;Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$ becomes $(F_{n+1}, F_n)$ after the transformation $T(p,q)$&lt;/p&gt;
+&lt;p&gt;Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$  after the transformation $T(p,q)$ becomes $(F_{n+1}, F_n)$&lt;/p&gt;
 
-&lt;p&gt;OK, now at least we know this &lt;em&gt;is&lt;/em&gt; related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain $(F&lt;em&gt;n, F&lt;/em&gt;{n-1})$ from pair $(F_1, F_0)$. BUT, its still $O(n)$.&lt;/p&gt;
+&lt;p&gt;OK, now at least we know this &lt;em&gt;is&lt;/em&gt; related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain &lt;span  class=&#34;math&#34;&gt;\((F_n, F_{n-1})\)&lt;/span&gt; from pair $(F_1, F_0)$. BUT, its still $O(n)$.&lt;/p&gt;
 
 &lt;p&gt;Now, a lazy but clever person comes up with a good idea so that he could do less work, what if I change the parameter $p, q$ to something else $p&#39;, q&#39;$ so that the effect of $T(p&#39;, q&#39;)$ is the same as using two times of $T(p, q)$ ? That is to say $T^2(p, q) = T(p&#39;, q&#39;)$&lt;/p&gt;
 
@@ -91,33 +91,30 @@ Fib(k-1) + Fib(k-2) &amp; &amp; (k &gt;= 2)
 
 &lt;p&gt;In the method we define such transformation $T(p, q)$. But it is an abstract function, right? Here we are going to give a &lt;strong&gt;REAL&lt;/strong&gt; transformation by matrix manipulation.&lt;/p&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;WARNING: Please get ready to see a true magic&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;$$
+&lt;div&gt;
+$$
 \left[
 \begin{matrix}
-F&lt;em&gt;n &amp;amp; F&lt;/em&gt;{n-1} &lt;br&gt;
-F_{n-1} &amp;amp; F_{n-2}
+F_n &amp; F_{n-1} \\
+F_{n-1} &amp; F_{n-2}
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-1 &amp;amp; 1 &lt;br&gt;
-1 &amp;amp;0
-\end{matrix}&lt;/p&gt;
-
-&lt;h1 id=&#34;right&#34;&gt;\right]&lt;/h1&gt;
-
-&lt;p&gt;\left[
-\begin{matrix}
-F_{n+1} &amp;amp; F_{n} &lt;br&gt;
-F_{n} &amp;amp; F_{n-1}
+1 &amp; 1 \\
+1 &amp; 0
 \end{matrix}
 \right]
-$$&lt;/p&gt;
+= 
+\left[
+\begin{matrix}
+F_{n+1} &amp; F_{n} \\
+F_{n} &amp; F_{n-1}
+\end{matrix}
+\right]
+$$
+&lt;/div&gt;
 
 &lt;p&gt;So we do $n$  times manipulation and will get $F_{n+1}$&lt;/p&gt;
 
@@ -125,35 +122,36 @@ $$&lt;/p&gt;
 
 &lt;p&gt;So let $B$ denotes&lt;/p&gt;
 
-&lt;p&gt;&lt;span  class=&#34;math&#34;&gt;\[
+&lt;div&gt;
+$$
 \left[
 \begin{matrix}
 1 &amp; 1 \\
 1 &amp; 0
 \end{matrix}
 \right]
-\]&lt;/span&gt;&lt;/p&gt;
+$$
 
-&lt;p&gt;$n$ times transformation is :&lt;/p&gt;
+$n$ times transformation is :
 
-&lt;p&gt;$$
+$$
 \left[
 \begin{matrix}
-F&lt;em&gt;n &amp;amp; F&lt;/em&gt;{n-1} &lt;br&gt;
-F_{n-1} &amp;amp; F_{n-2}
+F_n &amp; F_{n-1} \\
+F_{n-1} &amp; F_{n-2}
 \end{matrix}
 \right]
-\cdot&lt;/p&gt;
-
-&lt;h1 id=&#34;b--n&#34;&gt;B ^ n&lt;/h1&gt;
-
-&lt;p&gt;\left[
+\cdot
+B ^ n
+= 
+\left[
 \begin{matrix}
-F_{n+1} &amp;amp; F_{n} &lt;br&gt;
-F_{n} &amp;amp; F_{n-1}
+F_{n+1} &amp; F_{n} \\
+F_{n} &amp; F_{n-1}
 \end{matrix}
 \right]
-$$&lt;/p&gt;
+$$
+&lt;/div&gt;
 
 &lt;p&gt;And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven&#39;t got a good way to implement matrix and matrix manipulation in &lt;em&gt;source&lt;/em&gt; language, I will not give the code here.&lt;/p&gt;
 
@@ -161,55 +159,57 @@ $$&lt;/p&gt;
 
 &lt;p&gt;In fact we can find a instance for the transformation in &lt;strong&gt;Method #1&lt;/strong&gt;, in matrix form.&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;div&gt;
+$$
 \left[
- \begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   0 &amp;amp; 0 \\
-   b &amp;amp; a &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+0 &amp; 0 \\
+b &amp; a 
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
-   q &amp;amp; (p+q) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+p &amp; q \\
+q &amp; (p+q) 
+\end{matrix}
 \right]
-$$&lt;/p&gt;
+$$
+&lt;/div&gt;
 
 &lt;p&gt;notice that&lt;/p&gt;
 
-&lt;p&gt;$$
+&lt;div&gt;
+$$
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
-   q &amp;amp; (p+q) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+p &amp; q \\
+q &amp; (p+q) 
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
-   q &amp;amp; (p+q) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}&lt;/p&gt;
-
-&lt;h1 id=&#34;right&#34;&gt;\right]&lt;/h1&gt;
-
-&lt;p&gt;\left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p^2 + q^2 &amp;amp; 2pq +q^2 \\
-   2pq +q^2 &amp;amp; p^2 + 2pq+2q^2&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}&lt;/p&gt;
-
-&lt;h1 id=&#34;right&#34;&gt;\right]&lt;/h1&gt;
-
-&lt;p&gt;\left[
-\begin{matrix}&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;   p&amp;#39; &amp;amp; q&amp;#39; \\
-   q&amp;#39; &amp;amp; (p&amp;#39;+q&amp;#39;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;\end{matrix}
+\begin{matrix}
+p &amp; q \\
+q &amp; (p+q) 
+\end{matrix}
 \right]
-$$&lt;/p&gt;
+= 
+\left[
+\begin{matrix}
+p^2 + q^2 &amp; 2pq +q^2 \\
+2pq +q^2 &amp; p^2 + 2pq+2q^2
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+p&#39; &amp; q&#39; \\
+q&#39; &amp; (p&#39;+q&#39;) 
+\end{matrix}
+\right]
+$$
+&lt;/div&gt;
 
 &lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
 

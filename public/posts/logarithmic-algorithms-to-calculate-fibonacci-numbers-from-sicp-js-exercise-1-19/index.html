@@ -22,9 +22,10 @@
 
 <meta name="generator" content="Hugo 0.74.3" />
     
-    <script src="https://www.rye-catcher.codes/js/mathjax-config.js" defer></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" integrity="sha384-AfEj0r4/OFrOo5t7NnNe46zW/tFgW6x/bCJG8FqQCEo3+Aro6EYUG4+cU+KJWu/X" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js" integrity="sha384-g7c+Jr9ZivxKLnZTDUhnkOnsh30B4H0rpLUpJ4jAIKs4fnJI+sEnkvrMWph2EDg4" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js" integrity="sha384-mll67QQFJfxn0IYznZYonOWZ644AWYC+Pt2cHqMaRhXVrursRwvLnLaebdGIlYNa" crossorigin="anonymous"
+        onload="renderMathInElement(document.body);"></script>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://www.rye-catcher.codes/fontawesome/css/all.min.css" />
@@ -165,9 +166,9 @@ Fib(k-1) + Fib(k-2) & & (k >= 2)
 
 <p>You may ask: &quot;wait, what, how the * this is related to Fib&quot;, pls keep reading</p>
 
-<p>Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$ becomes $(F_{n+1}, F_n)$ after the transformation $T(p,q)$</p>
+<p>Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$  after the transformation $T(p,q)$ becomes $(F_{n+1}, F_n)$</p>
 
-<p>OK, now at least we know this <em>is</em> related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain $(F<em>n, F</em>{n-1})$ from pair $(F_1, F_0)$. BUT, its still $O(n)$.</p>
+<p>OK, now at least we know this <em>is</em> related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain <span  class="math">\((F_n, F_{n-1})\)</span> from pair $(F_1, F_0)$. BUT, its still $O(n)$.</p>
 
 <p>Now, a lazy but clever person comes up with a good idea so that he could do less work, what if I change the parameter $p, q$ to something else $p', q'$ so that the effect of $T(p', q')$ is the same as using two times of $T(p, q)$ ? That is to say $T^2(p, q) = T(p', q')$</p>
 
@@ -197,33 +198,30 @@ Fib(k-1) + Fib(k-2) & & (k >= 2)
 
 <p>In the method we define such transformation $T(p, q)$. But it is an abstract function, right? Here we are going to give a <strong>REAL</strong> transformation by matrix manipulation.</p>
 
-<blockquote>
-<p>WARNING: Please get ready to see a true magic</p>
-</blockquote>
-
-<p>$$
+<div>
+$$
 \left[
 \begin{matrix}
-F<em>n &amp; F</em>{n-1} <br>
-F_{n-1} &amp; F_{n-2}
+F_n & F_{n-1} \\
+F_{n-1} & F_{n-2}
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-1 &amp; 1 <br>
-1 &amp;0
-\end{matrix}</p>
-
-<h1 id="right">\right]</h1>
-
-<p>\left[
-\begin{matrix}
-F_{n+1} &amp; F_{n} <br>
-F_{n} &amp; F_{n-1}
+1 & 1 \\
+1 & 0
 \end{matrix}
 \right]
-$$</p>
+= 
+\left[
+\begin{matrix}
+F_{n+1} & F_{n} \\
+F_{n} & F_{n-1}
+\end{matrix}
+\right]
+$$
+</div>
 
 <p>So we do $n$  times manipulation and will get $F_{n+1}$</p>
 
@@ -231,35 +229,36 @@ $$</p>
 
 <p>So let $B$ denotes</p>
 
-<p><span  class="math">\[
+<div>
+$$
 \left[
 \begin{matrix}
 1 & 1 \\
 1 & 0
 \end{matrix}
 \right]
-\]</span></p>
+$$
 
-<p>$n$ times transformation is :</p>
+$n$ times transformation is :
 
-<p>$$
+$$
 \left[
 \begin{matrix}
-F<em>n &amp; F</em>{n-1} <br>
-F_{n-1} &amp; F_{n-2}
+F_n & F_{n-1} \\
+F_{n-1} & F_{n-2}
 \end{matrix}
 \right]
-\cdot</p>
-
-<h1 id="b--n">B ^ n</h1>
-
-<p>\left[
+\cdot
+B ^ n
+= 
+\left[
 \begin{matrix}
-F_{n+1} &amp; F_{n} <br>
-F_{n} &amp; F_{n-1}
+F_{n+1} & F_{n} \\
+F_{n} & F_{n-1}
 \end{matrix}
 \right]
-$$</p>
+$$
+</div>
 
 <p>And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven't got a good way to implement matrix and matrix manipulation in <em>source</em> language, I will not give the code here.</p>
 
@@ -267,55 +266,57 @@ $$</p>
 
 <p>In fact we can find a instance for the transformation in <strong>Method #1</strong>, in matrix form.</p>
 
-<p>$$
+<div>
+$$
 \left[
- \begin{matrix}</p>
-<pre><code>   0 &amp; 0 \\
-   b &amp; a </code></pre>
-<p>\end{matrix}
+\begin{matrix}
+0 & 0 \\
+b & a 
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}</p>
-<pre><code>   p &amp; q \\
-   q &amp; (p+q) </code></pre>
-<p>\end{matrix}
+\begin{matrix}
+p & q \\
+q & (p+q) 
+\end{matrix}
 \right]
-$$</p>
+$$
+</div>
 
 <p>notice that</p>
 
-<p>$$
+<div>
+$$
 \left[
-\begin{matrix}</p>
-<pre><code>   p &amp; q \\
-   q &amp; (p+q) </code></pre>
-<p>\end{matrix}
+\begin{matrix}
+p & q \\
+q & (p+q) 
+\end{matrix}
 \right]
 \cdot
 \left[
-\begin{matrix}</p>
-<pre><code>   p &amp; q \\
-   q &amp; (p+q) </code></pre>
-<p>\end{matrix}</p>
-
-<h1 id="right">\right]</h1>
-
-<p>\left[
-\begin{matrix}</p>
-<pre><code>   p^2 + q^2 &amp; 2pq +q^2 \\
-   2pq +q^2 &amp; p^2 + 2pq+2q^2</code></pre>
-<p>\end{matrix}</p>
-
-<h1 id="right">\right]</h1>
-
-<p>\left[
-\begin{matrix}</p>
-<pre><code>   p&#39; &amp; q&#39; \\
-   q&#39; &amp; (p&#39;+q&#39;) </code></pre>
-<p>\end{matrix}
+\begin{matrix}
+p & q \\
+q & (p+q) 
+\end{matrix}
 \right]
-$$</p>
+= 
+\left[
+\begin{matrix}
+p^2 + q^2 & 2pq +q^2 \\
+2pq +q^2 & p^2 + 2pq+2q^2
+\end{matrix}
+\right]
+=
+\left[
+\begin{matrix}
+p' & q' \\
+q' & (p'+q') 
+\end{matrix}
+\right]
+$$
+</div>
 
 <h3 id="reference">Reference</h3>
 

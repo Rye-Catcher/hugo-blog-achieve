@@ -53,9 +53,9 @@ We define that, a pair of numbers $(a,b)$, after the transformation $T(p, q)$, b
 
 You may ask: "wait, what, how the * this is related to Fib", pls keep reading
 
-Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$ becomes $(F_{n+1}, F_n)$ after the transformation $T(p,q)$
+Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$  after the transformation $T(p,q)$ becomes $(F_{n+1}, F_n)$
 
-OK, now at least we know this _is_ related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain $(F_n, F_{n-1})$ from pair $(F_1, F_0)$. BUT, its still $O(n)$.
+OK, now at least we know this _is_ related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain $$(F_n, F_{n-1})$$ from pair $(F_1, F_0)$. BUT, its still $O(n)$.
 
 Now, a lazy but clever person comes up with a good idea so that he could do less work, what if I change the parameter $p, q$ to something else $p', q'$ so that the effect of $T(p', q')$ is the same as using two times of $T(p, q)$ ? That is to say $T^2(p, q) = T(p', q')$
 
@@ -88,8 +88,7 @@ To compute $F_n$, the time complexity is $O(\log n)$
 
  In the method we define such transformation $T(p, q)$. But it is an abstract function, right? Here we are going to give a **REAL** transformation by matrix manipulation.
 
-> WARNING: Please get ready to see a true magic
-
+<div>
 $$
 \left[
 \begin{matrix}
@@ -101,7 +100,7 @@ F_{n-1} & F_{n-2}
 \left[
 \begin{matrix}
 1 & 1 \\
-1 &0
+1 & 0
 \end{matrix}
 \right]
 = 
@@ -112,6 +111,9 @@ F_{n} & F_{n-1}
 \end{matrix}
 \right]
 $$
+</div>
+
+
 
 So we do $n$  times manipulation and will get $F_{n+1}$
 
@@ -119,6 +121,7 @@ But...remember matrix manipulation has the property of associativity? e.g. $A \c
 
 So let $B$ denotes 
 
+<div>
 $$
 \left[
 \begin{matrix}
@@ -147,6 +150,7 @@ F_{n} & F_{n-1}
 \end{matrix}
 \right]
 $$
+</div>
 
 And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven't got a good way to implement matrix and matrix manipulation in _source_ language, I will not give the code here. 
 
@@ -156,54 +160,57 @@ And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So
 
 In fact we can find a instance for the transformation in **Method #1**, in matrix form.
 
+<div>
 $$
 \left[
- \begin{matrix}
-       0 & 0 \\
-       b & a 
+\begin{matrix}
+0 & 0 \\
+b & a 
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-       p & q \\
-       q & (p+q) 
+p & q \\
+q & (p+q) 
 \end{matrix}
 \right]
 $$
+</div>
 
 notice that
 
+<div>
 $$
 \left[
 \begin{matrix}
-       p & q \\
-       q & (p+q) 
+p & q \\
+q & (p+q) 
 \end{matrix}
 \right]
 \cdot
 \left[
 \begin{matrix}
-       p & q \\
-       q & (p+q) 
+p & q \\
+q & (p+q) 
 \end{matrix}
 \right]
 = 
 \left[
 \begin{matrix}
-       p^2 + q^2 & 2pq +q^2 \\
-       2pq +q^2 & p^2 + 2pq+2q^2
+p^2 + q^2 & 2pq +q^2 \\
+2pq +q^2 & p^2 + 2pq+2q^2
 \end{matrix}
 \right]
 =
 \left[
 \begin{matrix}
-       p' & q' \\
-       q' & (p'+q') 
+p' & q' \\
+q' & (p'+q') 
 \end{matrix}
 \right]
 $$
-
+</div>
 
  ### Reference
 
