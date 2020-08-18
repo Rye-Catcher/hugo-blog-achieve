@@ -6,10 +6,185 @@
    <description>Recent content in Categories on Rat&#39;s blog</description>
    <generator>Hugo -- gohugo.io</generator>
    <copyright>Copyright &amp;copy; 2020 - Rat</copyright>
-   <lastBuildDate>Fri, 14 Aug 2020 18:03:05 +0800</lastBuildDate>
+   <lastBuildDate>Wed, 19 Aug 2020 00:31:21 +0800</lastBuildDate>
    
        <atom:link href="https://www.rye-catcher.codes/categories/index.xml" rel="self" type="application/rss+xml" />
    
+   
+     <item>
+       <title>Logarithmic Algorithms to Calculate Fibonacci Numbers From SICP JS Exercise 1.19 </title>
+       <link>https://www.rye-catcher.codes/posts/logarithmic-algorithms-to-calculate-fibonacci-numbers-from-sicp-js-exercise-1-19/</link>
+       <pubDate>Wed, 19 Aug 2020 00:31:21 +0800</pubDate>
+       
+       <guid>https://www.rye-catcher.codes/posts/logarithmic-algorithms-to-calculate-fibonacci-numbers-from-sicp-js-exercise-1-19/</guid>
+       <description>&lt;h2 id=&#34;logarithmic-algorithms-to-calculate-fibonacci-numbers---from-sicp-js-exercise-119&#34;&gt;Logarithmic algorithms to calculate Fibonacci numbers - from SICP-JS Exercise 1.19&lt;/h2&gt;
+&lt;h3 id=&#34;preface&#34;&gt;Preface&lt;/h3&gt;
+&lt;p&gt;We all know the Fibonacci sequence
+$$
+\begin{equation}
+Fib(k)=
+\begin{cases}
+0 &amp;amp; &amp;amp; (k == 0) \&lt;br&gt;
+1 &amp;amp; &amp;amp; (k == 1) \&lt;br&gt;
+Fib(k-1) + Fib(k-2) &amp;amp; &amp;amp; (k &amp;gt;= 2)
+\end{cases}&lt;/p&gt;
+&lt;p&gt;\end{equation}
+$$
+and the Fibonacci number $F_n$ denotes the nth term of this sequence&lt;/p&gt;
+&lt;p&gt;By the definition we can easily write a recursive function to compute $F_n$&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;) {
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+	       &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+	       &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;===&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+	         &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+	         &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;) &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;);
+}
+&lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;);
+&lt;span style=&#34;color:#75715e&#34;&gt;//output: 2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;But this takes time complexity of $O(n)$, that is to the number of steps to calculate basically grows linearly&lt;/p&gt;
+&lt;p&gt;Here the article will introduce two ways to computer $F_n$ in $O(\log n)$. The first methods comes from the exercise 1.19 in the book &lt;a href=&#34;https://source-academy.github.io/sicp/index.html&#34;&gt;Structure and Interpretation of Computer Programs — JavaScript Adaptation&lt;/a&gt;, which is the textbook used in CS1101S module of NUS. Before you read this, I suggest know how to compute $n^k$ in $O(\log k)$&lt;/p&gt;
+&lt;h3 id=&#34;method-1&#34;&gt;Method #1&lt;/h3&gt;
+&lt;p&gt;This is a constructive way to me. We define a way of transform a pair of numbers $(a, b)$, this transformation needs two parameters, we name $p, q$ here.&lt;/p&gt;
+&lt;p&gt;We define that, a pair of numbers $(a,b)$, after the transformation $T(p, q)$, becomes $(a(p + q) + bq, bp + aq)$.&lt;/p&gt;
+&lt;p&gt;You may ask: &amp;ldquo;wait, what, how the * this is related to Fib&amp;rdquo;, pls keep reading&lt;/p&gt;
+&lt;p&gt;Let $p =0, q = 1$, and you will surprisingly find that $(F_{n}, F_{n-1})$ becomes $(F_{n+1}, F_n)$ after the transformation $T(p,q)$&lt;/p&gt;
+&lt;p&gt;OK, now at least we know this &lt;em&gt;is&lt;/em&gt; related to Fibonacci numbers. In fact after doing $n-1$ times $T(p, q)$ you can obtain $(F_n, F_{n-1})$ from pair $(F_1, F_0)$. BUT, its still $O(n)$.&lt;/p&gt;
+&lt;p&gt;Now, a lazy but clever person comes up with a good idea so that he could do less work, what if I change the parameter $p, q$ to something else $p&amp;rsquo;, q&#39;$ so that the effect of $T(p&amp;rsquo;, q&amp;rsquo;)$ is the same as using two times of $T(p, q)$ ? That is to say $T^2(p, q) = T(p&amp;rsquo;, q&amp;rsquo;)$&lt;/p&gt;
+&lt;p&gt;You can use your algebra knowledge to obtain that $p&amp;rsquo; = p^2 + q^2, q&amp;rsquo; = 2pq + q^2$.  So if you do $n$ times transformation $T(p, q)$ (suppose $n$ is even), it is equal to do $\frac{n}{2}$ times $T(p&amp;rsquo;, q&amp;rsquo;)$ . Or we could say: $T^n(p, q) = T^{\frac{n}{2}}(p&amp;rsquo;, q&amp;rsquo;)$&lt;/p&gt;
+&lt;p&gt;Now recall how we do the logarithmic algorithms for exponentiation, we can have following programs&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt;) {
+	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; 
+	       &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;is_even&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt;)
+	         &lt;span style=&#34;color:#f92672&#34;&gt;?&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;, 
+                        &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;, 
+                        &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;/&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;)
+	         &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;calc_fib&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;, 
+                        &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;), 
+                        &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;p&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;q&lt;/span&gt;, 
+                        &lt;span style=&#34;color:#a6e22e&#34;&gt;k&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;)
+	       &lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To compute $F_n$, the time complexity is $O(\log n)$&lt;/p&gt;
+&lt;h3 id=&#34;method-2&#34;&gt;Method #2&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WARNING: You better know the matrix manipulation before reading this section&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In the method we define such transformation $T(p, q)$. But it is an abstract function, right? Here we are going to give a &lt;strong&gt;REAL&lt;/strong&gt; transformation by matrix manipulation.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;WARNING: Please get ready to see a true magic&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;$$
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;p&gt;F_n &amp;amp; F_{n-1} \&lt;br&gt;
+F_{n-1} &amp;amp; F_{n-2}&lt;/p&gt;
+&lt;p&gt;\end{matrix}
+\right]
+\cdot
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;p&gt;1 &amp;amp; 1 \&lt;br&gt;
+1 &amp;amp;0&lt;/p&gt;
+&lt;p&gt;\end{matrix}
+\right]&lt;/p&gt;
+&lt;p&gt;=
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;p&gt;F_{n+1} &amp;amp; F_{n} \&lt;br&gt;
+F_{n} &amp;amp; F_{n-1}&lt;/p&gt;
+&lt;p&gt;\end{matrix}
+\right]
+$$&lt;/p&gt;
+&lt;p&gt;So we do $n$  times manipulation and will get $F_{n+1}$&lt;/p&gt;
+&lt;p&gt;But&amp;hellip;remember matrix manipulation has the property of associativity? e.g. $A \cdot B \cdot C = A \cdot (B \cdot C)$, $A, B, C$ all denoted a matrix.&lt;/p&gt;
+&lt;p&gt;So let $B$ denotes
+$$
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;p&gt;1 &amp;amp; 1 \&lt;br&gt;
+1 &amp;amp;0&lt;/p&gt;
+&lt;p&gt;\end{matrix}
+\right]
+$$
+$n$ times transformation is :
+$$
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;p&gt;F_n &amp;amp; F_{n-1} \&lt;br&gt;
+F_{n-1} &amp;amp; F_{n-2}&lt;/p&gt;
+&lt;h1 id=&#34;b--n&#34;&gt;\end{matrix}
+\right]
+\cdot
+B ^ n&lt;/h1&gt;
+&lt;p&gt;\left[
+\begin{matrix}&lt;/p&gt;
+&lt;p&gt;F_{n+1} &amp;amp; F_{n} \&lt;br&gt;
+F_{n} &amp;amp; F_{n-1}&lt;/p&gt;
+&lt;p&gt;\end{matrix}
+\right]
+$$
+And, in fact we can apply the logarithmic algorithm to matrix exponentiation. So the time complexity becomes $O(\log n)$. Since I haven&amp;rsquo;t got a good way to implement matrix and matrix manipulation in &lt;em&gt;source&lt;/em&gt; language, I will not give the code here.&lt;/p&gt;
+&lt;h3 id=&#34;remark&#34;&gt;Remark&lt;/h3&gt;
+&lt;p&gt;In fact we can find a instance for the transformation in &lt;strong&gt;Method #1&lt;/strong&gt;, in matrix form.
+$$
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   0 &amp;amp; 0 \\
+
+   b &amp;amp; a 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;\end{matrix}
+\right]
+\cdot
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
+
+   q &amp;amp; (p+q) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;\end{matrix}
+\right]
+$$
+notice that
+$$
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
+
+   q &amp;amp; (p+q) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;\end{matrix}
+\right]
+\cdot
+\left[
+\begin{matrix}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   p &amp;amp; q \\
+
+   q &amp;amp; (p+q) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;right&#34;&gt;\end{matrix}
+\right]&lt;/h1&gt;
+&lt;p&gt;\left[
+\begin{matrix}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   p^2 + q^2 &amp;amp; 2pq +q^2 \\
+
+   2pq +q^2 &amp;amp; p^2 + 2pq+2q^2
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;right-1&#34;&gt;\end{matrix}
+\right]&lt;/h1&gt;
+&lt;p&gt;\left[
+\begin{matrix}&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;   p&#39; &amp;amp; q&#39; \\
+
+   q&#39; &amp;amp; (p&#39;+q&#39;) 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;\end{matrix}
+\right]
+$$&lt;/p&gt;
+&lt;h3 id=&#34;reference&#34;&gt;Reference&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://source-academy.github.io/sicp/index.html&#34;&gt;Interpretation of Computer Programs — JavaScript Adaptation&lt;/a&gt;, 1.2.4, Exercise 1.19&lt;/p&gt;
+</description>
+     </item>
    
      <item>
        <title>My First Post</title>

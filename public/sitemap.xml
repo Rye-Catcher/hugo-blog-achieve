@@ -4,17 +4,47 @@
   
   <url>
     <loc>https://www.rye-catcher.codes/posts/</loc>
-    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/categories/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/tags/fibonacci/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/posts/logarithmic-algorithms-to-calculate-fibonacci-numbers-from-sicp-js-exercise-1-19/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/tags/sicp/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/categories/sicp/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.rye-catcher.codes/tags/</loc>
+    <lastmod>2020-08-19T00:31:21+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://www.rye-catcher.codes/about/</loc>
     <lastmod>2020-08-14T18:09:25+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.rye-catcher.codes/categories/</loc>
-    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
   </url>
   
   <url>
@@ -29,16 +59,6 @@
   
   <url>
     <loc>https://www.rye-catcher.codes/posts/my-first-post/</loc>
-    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.rye-catcher.codes/</loc>
-    <lastmod>2020-08-14T18:03:05+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://www.rye-catcher.codes/tags/</loc>
     <lastmod>2020-08-14T18:03:05+08:00</lastmod>
   </url>
   
