@@ -161,10 +161,11 @@ when $b = 0$ in one recursive process , $a$ is the GCD we want.</p>
 
 <p>Hence we can prove that $GCD(k_1p, k_2p) = GCD((k_1-k_2)p, k_2p)$, in other words, $GCD(a, b) = GCD(a-b, b)$</p>
 
-<p>So we can also say
-<span  class="math">\(
-GCD(a, b) = GCD(a-b, b) = GCD(a-2b, b) = GCD(a-3b, b) = ... GCD(a - \lfloor{\frac{a}{b}}\rfloor b, b) = GCD(a \bmod b, b)
-\)</span></p>
+<p>So we can also say</p>
+
+<p><span  class="math">\[
+GCD(a, b) = GCD(a-b, b) = GCD(a-2b, b) = ... GCD(a - \lfloor{\frac{a}{b}}\rfloor b, b) = GCD(a \bmod b, b)
+\]</span></p>
 
 <h4 id="section-2">#2</h4>
 
@@ -172,11 +173,13 @@ GCD(a, b) = GCD(a-b, b) = GCD(a-2b, b) = GCD(a-3b, b) = ... GCD(a - \lfloor{\fra
 
 <p>Given any $d$ such that $d | a, d|b$, we can have $\frac{c}{d} = \frac{a}{d} - k\frac{b}{d}$, since right hand side is a integer, left hand side must be an integer</p>
 
-<p>So every common divisor of two integers $a$ and $b$  is also the divisor of $a \bmod b$. Therefore,
-<span  class="math">\(
+<p>So every common divisor of two integers $a$ and $b$  is also the divisor of $a \bmod b$. Therefore,</p>
+
+<p><span  class="math">\[
 \forall d , d|a \land d|b \ \Rightarrow \ d|b \land d|(a \bmod b)
-\)</span>
-Next we can use the similar method to prove the common divisor of $b$ and $a \bmod b$ is also the common divisor of $a$ and $b$ (Hint: given any $d$ such that $d|b$, $d|(a \bmod b)$)</p>
+\]</span></p>
+
+<p>Next we can use the similar method to prove the common divisor of $b$ and $a \bmod b$ is also the common divisor of $a$ and $b$ (Hint: given any $d$ such that $d|b$, $d|(a \bmod b)$)</p>
 
 <p>So the set of common divisors of $a,b$ is the same with the one of $b, a \bmod b$. So the greatest common divisor is the same as well</p>
 
