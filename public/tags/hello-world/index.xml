@@ -12,6 +12,52 @@
    
    
      <item>
+       <title>A Greedy Algorithm for Load Balancing</title>
+       <link>https://www.rye-catcher.codes/posts/a-greedy-algorithm-for-load-balancing/</link>
+       <pubDate>Wed, 20 Jan 2021 18:20:25 +0800</pubDate>
+       
+       <guid>https://www.rye-catcher.codes/posts/a-greedy-algorithm-for-load-balancing/</guid>
+       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;
+&lt;p&gt;This is from optional problem of problem set 2 of CS2040S course.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Given $p$ processors and an integer array $\text{jobSize}$[ ]. The array has $m$ jobs and $i \text{th}$ job need $\text{jobSize}[i]$ time for a processor to handle. What is the minimum achievable maximum load on any one processor ?&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The problem already stated that it is a NP-hard problem. All we need to do is to find a greedy algorithm to find a &amp;ldquo;good&amp;rdquo; solution and to prove this solution is no more than twice of the optimal solution (say it is 2-approximation of optimal).&lt;/p&gt;
+&lt;p&gt;The problem also gives hint that we only need to assigns each job to the least loaded processor.&lt;/p&gt;
+&lt;p&gt;I know how to implement this algorithm using heap, but have no idea of proving this property. So I turned to &lt;em&gt;Introduction of Algorithms&lt;/em&gt; for help and, luckily, found there is an exercise in the chapter &lt;em&gt;approximation algorithm&lt;/em&gt; which is almost the same! Then I read the chapters in parallel computing chapter and find this theorem. Just amazing!&lt;/p&gt;
+&lt;p&gt;The exercise problem is exercise 35-5, page 1135 of Introduction to Algorithms 3rd edition and proof is from page 782, Theorem 27.1 and 27.2.&lt;/p&gt;
+&lt;h2 id=&#34;algorithm&#34;&gt;Algorithm&lt;/h2&gt;
+&lt;p&gt;Heap, the rest omitted&lt;/p&gt;
+&lt;p&gt;The time complexity is $O((m + p) \log p)$&lt;/p&gt;
+&lt;h2 id=&#34;proof&#34;&gt;Proof&lt;/h2&gt;
+&lt;p&gt;Let $C_{max}$ denote the solution derived from the greedy algorithm, and $C_{opt}$ denote the optimal solution&lt;/p&gt;
+&lt;p&gt;Let $P_1$ denote the total amount of work, which is $\sum \text{jobSize[]}$&lt;/p&gt;
+&lt;p&gt;Let $P_{max}$ denote the maximum work load, which is maximum number in the $\text{jobSize}[]$ array&lt;/p&gt;
+&lt;p&gt;and $p$ is the number of processors&lt;/p&gt;
+&lt;p&gt;First we need to prove $C_{max} \leq  \lfloor{P_1 / p}\rfloor + P_{max}$&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Consider the time span during which all $p$ processors are doing a work, say it lasts $T_1$&lt;/p&gt;
+&lt;p&gt;Suppose this $T_1$ is greater than $\lfloor{P_1 / p}\rfloor$, say it is  $\lfloor{P_1 / p}\rfloor + 1$ (since we are doing this in an integer system)&lt;/p&gt;
+&lt;p&gt;then the amount of work done during this time span is $p \times (\lfloor{P_1 / p}\rfloor + 1) = P_1 - (P_1 \mod p) + p$&lt;/p&gt;
+&lt;p&gt;since $(P_1 \mod p) &amp;lt; p$, the amount of work done during the time span is greater than $P_1$ ! which is contradictory !&lt;/p&gt;
+&lt;p&gt;Therefore $T_1 &amp;lt;= \lfloor{P_1 / p}\rfloor$&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Consider the time span during which NOT all $p$ processors are doing a work, say it lasts $T_2$&lt;/p&gt;
+&lt;p&gt;It is impossible for $T_2 &amp;gt; P_{max}$ if we assigns each job to the *least loaded processor*&lt;/p&gt;
+&lt;p&gt;(not strict proof but I guess it is easy to understand)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Because either all $p$ processors are doing a work or not all $p$ processors are doing a work&lt;/p&gt;
+&lt;p&gt;$C_{max}$, the longest time span, should be less or equal to the sum of these two time span.&lt;/p&gt;
+&lt;p&gt;So, $C_{max} \leq  \lfloor{P_1 / p}\rfloor + P_{max}$&lt;/p&gt;
+&lt;p&gt;Second, it is already given that $C_{opt} &amp;gt;= \lfloor{P_1 / p}\rfloor$ and $C_{opt} &amp;gt;= P_{max}$&lt;/p&gt;
+&lt;p&gt;it is not hard to deduce that $C_{max} &amp;lt;= 2 \times C_{opt}$&lt;/p&gt;
+</description>
+     </item>
+   
+     <item>
        <title>Euclid Algorithm a Beautiful Way to Compute Gcd</title>
        <link>https://www.rye-catcher.codes/posts/euclid-algorithm-a-beautiful-way-to-compute-gcd/</link>
        <pubDate>Wed, 19 Aug 2020 17:03:29 +0800</pubDate>
